@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Books Worth Reading</title>
+  <link rel="preconnect" href="https://covers.openlibrary.org" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -11,111 +12,300 @@
       background: #0f1117;
       color: #e8eaed;
       line-height: 1.6;
-      padding: 2rem 1rem 4rem;
-      max-width: 680px;
-      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
     }
-    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
-    .sub { color: #9aa0a6; font-size: 0.95rem; margin-bottom: 2rem; }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    header { margin-bottom: 2.5rem; }
+    h1 { font-size: 2rem; margin-bottom: 0.35rem; letter-spacing: -0.02em; }
+    .sub { color: #9aa0a6; font-size: 1rem; max-width: 520px; }
+
     h2 {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: #7dd3c0;
-      margin: 2rem 0 0.75rem;
-    }
-    ul { list-style: none; }
-    li {
-      padding: 0.6rem 0;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
       border-bottom: 1px solid #2a2d35;
     }
-    li:last-child { border-bottom: none; }
-    .title { font-weight: 600; }
-    .author { color: #9aa0a6; font-size: 0.9rem; }
-    .note { color: #b0b4bb; font-size: 0.85rem; margin-top: 0.15rem; }
-    footer { margin-top: 3rem; color: #6b7280; font-size: 0.8rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #161a22;
+      border: 1px solid #2a2d35;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: #3dd6c640;
+      transform: translateY(-2px);
+    }
+
+    .cover-wrap {
+      background: #1e232d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      min-height: 220px;
+    }
+    .cover {
+      width: 130px;
+      height: auto;
+      max-height: 190px;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .cover-fallback {
+      width: 130px;
+      height: 190px;
+      border-radius: 4px;
+      background: linear-gradient(145deg, #2a3544, #1a2030);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.75rem;
+      color: #7dd3c0;
+      font-weight: 600;
+      line-height: 1.3;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+
+    .card-body { padding: 1rem 1.15rem 1.15rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+    .card-title a { color: #e8eaed; text-decoration: none; }
+    .card-title a:hover { color: #7dd3c0; }
+    .author { color: #9aa0a6; font-size: 0.85rem; margin-bottom: 0.6rem; }
+    .desc { color: #b0b4bb; font-size: 0.85rem; flex: 1; margin-bottom: 0.85rem; }
+    .link-btn {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #0f1117;
+      background: #7dd3c0;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background 0.15s;
+    }
+    .link-btn:hover { background: #9ee8d8; }
+    .link-btn.free { background: transparent; color: #7dd3c0; border: 1px solid #7dd3c050; }
+    .link-btn.free:hover { background: #7dd3c015; }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2a2d35;
+      color: #6b7280;
+      font-size: 0.8rem;
+    }
+    footer a { color: #7dd3c0; }
   </style>
 </head>
 <body>
-  <h1>Books Worth Reading</h1>
-  <p class="sub">A short list of books for robotics, controls, and aerospace.</p>
+  <div class="wrap">
+    <header>
+      <h1>Books Worth Reading</h1>
+      <p class="sub">Curated books for robotics, controls, aerospace, and the math behind them. Click any cover or title to learn more.</p>
+    </header>
 
-  <h2>Robotics</h2>
-  <ul>
-    <li>
-      <div class="title">Modern Robotics</div>
-      <div class="author">Lynch & Park</div>
-      <div class="note">Kinematics, dynamics, planning. Free online.</div>
-    </li>
-    <li>
-      <div class="title">Introduction to Robotics</div>
-      <div class="author">Craig</div>
-      <div class="note">Classic intro. Good first robotics book.</div>
-    </li>
-    <li>
-      <div class="title">Probabilistic Robotics</div>
-      <div class="author">Thrun, Burgard, Fox</div>
-      <div class="note">SLAM, localization, state estimation.</div>
-    </li>
-    <li>
-      <div class="title">Planning Algorithms</div>
-      <div class="author">LaValle</div>
-      <div class="note">Motion planning. Free online.</div>
-    </li>
-  </ul>
+    <h2>Robotics</h2>
+    <div class="grid">
 
-  <h2>Controls</h2>
-  <ul>
-    <li>
-      <div class="title">Feedback Control of Dynamic Systems</div>
-      <div class="author">Franklin, Powell, Emami-Naeini</div>
-      <div class="note">The standard controls textbook.</div>
-    </li>
-    <li>
-      <div class="title">Robot Modeling and Control</div>
-      <div class="author">Spong, Hutchinson, Vidyasagar</div>
-      <div class="note">Dynamics + control for manipulators.</div>
-    </li>
-    <li>
-      <div class="title">Optimal Control and Estimation</div>
-      <div class="author">Stengel</div>
-      <div class="note">LQR, Kalman filtering, robust control.</div>
-    </li>
-  </ul>
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9781107156302-L.jpg" alt="Modern Robotics cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Modern Robotics'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://modernrobotics.org/" target="_blank" rel="noopener">Modern Robotics</a></h3>
+          <p class="author">Kevin Lynch & Frank Park</p>
+          <p class="desc">The go-to text for robot kinematics, dynamics, and motion planning. Uses modern matrix notation and comes with free video lectures, exercises, and a Python library.</p>
+          <a class="link-btn free" href="https://modernrobotics.org/" target="_blank" rel="noopener">Read free online</a>
+        </div>
+      </article>
 
-  <h2>Aerospace</h2>
-  <ul>
-    <li>
-      <div class="title">Fundamentals of Astrodynamics</div>
-      <div class="author">Bate, Mueller, White</div>
-      <div class="note">Orbital mechanics. Short and dense.</div>
-    </li>
-    <li>
-      <div class="title">Aircraft Control and Simulation</div>
-      <div class="author">Stevens, Lewis, Johnson</div>
-      <div class="note">Flight dynamics and autopilot design.</div>
-    </li>
-  </ul>
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780133489799-L.jpg" alt="Introduction to Robotics cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Intro to Robotics'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://www.pearson.com/en-us/subject-catalog/p/introduction-to-robotics-mechanics-and-control/P200000003380" target="_blank" rel="noopener">Introduction to Robotics</a></h3>
+          <p class="author">John J. Craig</p>
+          <p class="desc">The classic first robotics book. Covers homogeneous transforms, inverse kinematics, Jacobians, trajectory planning, and manipulator dynamics in a clear, engineering-first style.</p>
+          <a class="link-btn" href="https://www.amazon.com/Introduction-Robotics-Mechanics-Control-4th/dp/0133489790" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
 
-  <h2>Math & Foundations</h2>
-  <ul>
-    <li>
-      <div class="title">Linear Algebra Done Right</div>
-      <div class="author">Axler</div>
-      <div class="note">Clean linear algebra without determinants first.</div>
-    </li>
-    <li>
-      <div class="title">Introduction to Linear Algebra</div>
-      <div class="author">Strang</div>
-      <div class="note">Intuitive. Great lectures on MIT OCW.</div>
-    </li>
-    <li>
-      <div class="title">Convex Optimization</div>
-      <div class="author">Boyd & Vandenberghe</div>
-      <div class="note">Used everywhere in modern robotics. Free online.</div>
-    </li>
-  </ul>
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780262201629-L.jpg" alt="Probabilistic Robotics cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Probabilistic Robotics'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://mitpress.mit.edu/9780262201629/probabilistic-robotics/" target="_blank" rel="noopener">Probabilistic Robotics</a></h3>
+          <p class="author">Sebastian Thrun, Wolfram Burgard & Dieter Fox</p>
+          <p class="desc">The bible for SLAM, localization, and Bayesian state estimation in robots. Essential if you work on autonomous navigation, sensor fusion, or anything under uncertainty.</p>
+          <a class="link-btn" href="https://mitpress.mit.edu/9780262201629/probabilistic-robotics/" target="_blank" rel="noopener">MIT Press</a>
+        </div>
+      </article>
 
-  <footer>Curated by Herron Nguyen · <a href="https://github.com/herronoui/reading-resources" style="color:#7dd3c0">GitHub</a></footer>
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780521862059-L.jpg" alt="Planning Algorithms cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Planning Algorithms'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="http://lavalle.pl/planning/" target="_blank" rel="noopener">Planning Algorithms</a></h3>
+          <p class="author">Steven M. LaValle</p>
+          <p class="desc">Comprehensive coverage of motion planning: sampling-based methods (RRT, PRM), combinatorial planning, and decision theory. The full book is free online and widely used in research labs.</p>
+          <a class="link-btn free" href="http://lavalle.pl/planning/" target="_blank" rel="noopener">Read free online</a>
+        </div>
+      </article>
+
+    </div>
+
+    <h2>Controls</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780134685717-L.jpg" alt="Feedback Control cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Feedback Control'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://www.pearson.com/en-us/subject-catalog/p/feedback-control-of-dynamic-systems/P200000003379" target="_blank" rel="noopener">Feedback Control of Dynamic Systems</a></h3>
+          <p class="author">Gene Franklin, J. David Powell & Abbas Emami-Naeini</p>
+          <p class="desc">The standard undergraduate controls textbook. PID design, root locus, frequency response, state-space methods, and digital control. If you take one controls class, it's probably with this book.</p>
+          <a class="link-btn" href="https://www.amazon.com/Feedback-Control-Dynamic-Systems-8th/dp/0134685717" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780471646432-L.jpg" alt="Robot Modeling and Control cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Robot Modeling & Control'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://www.wiley.com/en-us/Robot+Modeling+and+Control-p-9780471646432" target="_blank" rel="noopener">Robot Modeling and Control</a></h3>
+          <p class="author">Mark W. Spong, Seth Hutchinson & M. Vidyasagar</p>
+          <p class="desc">Bridges rigid-body dynamics and control for manipulators. Covers forward/inverse dynamics, computed torque control, and adaptive control. Great follow-up after Craig or Modern Robotics.</p>
+          <a class="link-btn" href="https://www.amazon.com/Robot-Modeling-Control-Mark-Spong/dp/0471646437" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780471863795-L.jpg" alt="Optimal Control and Estimation cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Optimal Control'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://www.wiley.com/en-us/Optimal+Control+and+Estimation-p-9780471863795" target="_blank" rel="noopener">Optimal Control and Estimation</a></h3>
+          <p class="author">Robert F. Stengel</p>
+          <p class="desc">Covers LQR, Kalman filtering, robust control, and stochastic optimal control in one place. Directly relevant to AA 212-style coursework and aerospace GNC applications.</p>
+          <a class="link-btn" href="https://www.amazon.com/Optimal-Control-Estimation-Robert-Stengel/dp/0471863797" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
+
+    </div>
+
+    <h2>Aerospace</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780486600611-L.jpg" alt="Fundamentals of Astrodynamics cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Astrodynamics'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://store.doverpublications.com/products/9780486600611" target="_blank" rel="noopener">Fundamentals of Astrodynamics</a></h3>
+          <p class="author">Roger R. Bate, Donald D. Mueller & Jerry E. White</p>
+          <p class="desc">Short, dense, and legendary. Two-body orbits, orbital transfers, rendezvous, and interplanetary trajectories. The standard intro to orbital mechanics used at Stanford and MIT.</p>
+          <a class="link-btn" href="https://www.amazon.com/Fundamentals-Astrodynamics-Dover-Aeronautical-Engineering/dp/0486600610" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9781119672519-L.jpg" alt="Aircraft Control and Simulation cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Aircraft Control'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://www.wiley.com/en-us/Aircraft+Control+and+Simulation%3A+Dynamics%2C+Controls+Design%2C+and+Autonomous+Systems%2C+3rd+Edition-p-9781119672519" target="_blank" rel="noopener">Aircraft Control and Simulation</a></h3>
+          <p class="author">Brian L. Stevens, Frank L. Lewis & Eric N. Johnson</p>
+          <p class="desc">Flight dynamics, stability derivatives, autopilot design, and simulation. Connects classical control theory to real aircraft and UAV systems. Used heavily in aero programs.</p>
+          <a class="link-btn" href="https://www.amazon.com/Aircraft-Control-Simulation-Dynamics-Autonomous/dp/1119672517" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </article>
+
+    </div>
+
+    <h2>Math & Foundations</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9783319110790-L.jpg" alt="Linear Algebra Done Right cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Linear Algebra Done Right'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://linear.axler.net/" target="_blank" rel="noopener">Linear Algebra Done Right</a></h3>
+          <p class="author">Sheldon Axler</p>
+          <p class="desc">Builds linear algebra from vector spaces and linear maps instead of determinants first. Clean proofs, great for understanding the math behind robotics Jacobians, SVD, and state-space control.</p>
+          <a class="link-btn" href="https://linear.axler.net/" target="_blank" rel="noopener">Author's site</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9781733146630-L.jpg" alt="Introduction to Linear Algebra cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Intro to Linear Algebra'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://math.mit.edu/~gs/linearalgebra/" target="_blank" rel="noopener">Introduction to Linear Algebra</a></h3>
+          <p class="author">Gilbert Strang</p>
+          <p class="desc">The most intuitive linear algebra book out there. Matrix factorizations, least squares, eigenvalues, all with geometric intuition. Pair with Strang's MIT OCW lectures for free.</p>
+          <a class="link-btn free" href="https://math.mit.edu/~gs/linearalgebra/" target="_blank" rel="noopener">Read free online</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780521833783-L.jpg" alt="Convex Optimization cover"
+               onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover-fallback',textContent:'Convex Optimization'}))" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title"><a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">Convex Optimization</a></h3>
+          <p class="author">Stephen Boyd & Lieven Vandenberghe</p>
+          <p class="desc">The foundation for modern trajectory optimization, MPC, and learning. Used across Stanford robotics and controls research. Full PDF and lecture videos are free.</p>
+          <a class="link-btn free" href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank" rel="noopener">Read free online</a>
+        </div>
+      </article>
+
+    </div>
+
+    <footer>
+      Curated by <a href="https://github.com/herronoui">Herron Nguyen</a> ·
+      <a href="https://github.com/herronoui/reading-resources">Source on GitHub</a>
+    </footer>
+  </div>
 </body>
 </html>
