@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Books Worth Reading</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f1117;
+      color: #e8eaed;
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .sub { color: #9aa0a6; font-size: 0.95rem; margin-bottom: 2rem; }
+    h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7dd3c0;
+      margin: 2rem 0 0.75rem;
+    }
+    ul { list-style: none; }
+    li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #2a2d35;
+    }
+    li:last-child { border-bottom: none; }
+    .title { font-weight: 600; }
+    .author { color: #9aa0a6; font-size: 0.9rem; }
+    .note { color: #b0b4bb; font-size: 0.85rem; margin-top: 0.15rem; }
+    footer { margin-top: 3rem; color: #6b7280; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <h1>Books Worth Reading</h1>
+  <p class="sub">A short list of books for robotics, controls, and aerospace.</p>
+
+  <h2>Robotics</h2>
+  <ul>
+    <li>
+      <div class="title">Modern Robotics</div>
+      <div class="author">Lynch & Park</div>
+      <div class="note">Kinematics, dynamics, planning. Free online.</div>
+    </li>
+    <li>
+      <div class="title">Introduction to Robotics</div>
+      <div class="author">Craig</div>
+      <div class="note">Classic intro. Good first robotics book.</div>
+    </li>
+    <li>
+      <div class="title">Probabilistic Robotics</div>
+      <div class="author">Thrun, Burgard, Fox</div>
+      <div class="note">SLAM, localization, state estimation.</div>
+    </li>
+    <li>
+      <div class="title">Planning Algorithms</div>
+      <div class="author">LaValle</div>
+      <div class="note">Motion planning. Free online.</div>
+    </li>
+  </ul>
+
+  <h2>Controls</h2>
+  <ul>
+    <li>
+      <div class="title">Feedback Control of Dynamic Systems</div>
+      <div class="author">Franklin, Powell, Emami-Naeini</div>
+      <div class="note">The standard controls textbook.</div>
+    </li>
+    <li>
+      <div class="title">Robot Modeling and Control</div>
+      <div class="author">Spong, Hutchinson, Vidyasagar</div>
+      <div class="note">Dynamics + control for manipulators.</div>
+    </li>
+    <li>
+      <div class="title">Optimal Control and Estimation</div>
+      <div class="author">Stengel</div>
+      <div class="note">LQR, Kalman filtering, robust control.</div>
+    </li>
+  </ul>
+
+  <h2>Aerospace</h2>
+  <ul>
+    <li>
+      <div class="title">Fundamentals of Astrodynamics</div>
+      <div class="author">Bate, Mueller, White</div>
+      <div class="note">Orbital mechanics. Short and dense.</div>
+    </li>
+    <li>
+      <div class="title">Aircraft Control and Simulation</div>
+      <div class="author">Stevens, Lewis, Johnson</div>
+      <div class="note">Flight dynamics and autopilot design.</div>
+    </li>
+  </ul>
+
+  <h2>Math & Foundations</h2>
+  <ul>
+    <li>
+      <div class="title">Linear Algebra Done Right</div>
+      <div class="author">Axler</div>
+      <div class="note">Clean linear algebra without determinants first.</div>
+    </li>
+    <li>
+      <div class="title">Introduction to Linear Algebra</div>
+      <div class="author">Strang</div>
+      <div class="note">Intuitive. Great lectures on MIT OCW.</div>
+    </li>
+    <li>
+      <div class="title">Convex Optimization</div>
+      <div class="author">Boyd & Vandenberghe</div>
+      <div class="note">Used everywhere in modern robotics. Free online.</div>
+    </li>
+  </ul>
+
+  <footer>Curated by Herron Nguyen · <a href="https://github.com/herronoui/reading-resources" style="color:#7dd3c0">GitHub</a></footer>
+</body>
+</html>
