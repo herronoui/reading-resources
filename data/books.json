@@ -1,0 +1,175 @@
+{
+  "updated_at": "2026-07-07",
+  "categories": {
+    "robotics": {
+      "label": "Robotics",
+      "books": [
+        {
+          "id": "modern-robotics",
+          "title": "Modern Robotics",
+          "author": "Lynch & Park",
+          "isbn": "9781107156302",
+          "desc": "Kinematics, dynamics, and planning. Free video lectures and Python library included.",
+          "link": "https://modernrobotics.org/",
+          "label": "Read free",
+          "free": true
+        },
+        {
+          "id": "craig-robotics",
+          "title": "Introduction to Robotics",
+          "author": "John J. Craig",
+          "isbn": "9780133489799",
+          "desc": "The classic first robotics book. Transforms, Jacobians, trajectory planning, and dynamics.",
+          "link": "https://www.amazon.com/Introduction-Robotics-Mechanics-Control-4th/dp/0133489790",
+          "label": "View book",
+          "free": false
+        },
+        {
+          "id": "prob-robotics",
+          "title": "Probabilistic Robotics",
+          "author": "Thrun, Burgard & Fox",
+          "isbn": "9780262201629",
+          "desc": "SLAM, localization, and Bayesian state estimation. The bible for autonomous navigation.",
+          "link": "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/",
+          "label": "MIT Press",
+          "free": false
+        },
+        {
+          "id": "planning-algorithms",
+          "title": "Planning Algorithms",
+          "author": "Steven M. LaValle",
+          "isbn": "9780521862059",
+          "desc": "RRT, PRM, combinatorial planning, and decision theory. Full book free online.",
+          "link": "http://lavalle.pl/planning/",
+          "label": "Read free",
+          "free": true
+        }
+      ]
+    },
+    "controls": {
+      "label": "Controls",
+      "books": [
+        {
+          "id": "franklin-controls",
+          "title": "Feedback Control of Dynamic Systems",
+          "author": "Franklin, Powell & Emami-Naeini",
+          "isbn": "9780134685717",
+          "desc": "PID, root locus, frequency response, and state-space. The standard undergrad controls text.",
+          "link": "https://www.amazon.com/Feedback-Control-Dynamic-Systems-8th/dp/0134685717",
+          "label": "View book",
+          "free": false
+        },
+        {
+          "id": "spong-modeling",
+          "title": "Robot Modeling and Control",
+          "author": "Spong, Hutchinson & Vidyasagar",
+          "isbn": "9780471646432",
+          "desc": "Rigid-body dynamics and computed torque control for manipulators.",
+          "link": "https://www.amazon.com/Robot-Modeling-Control-Mark-Spong/dp/0471646437",
+          "label": "View book",
+          "free": false
+        },
+        {
+          "id": "stengel-optimal",
+          "title": "Optimal Control and Estimation",
+          "author": "Robert F. Stengel",
+          "isbn": "9780471863795",
+          "desc": "LQR, Kalman filtering, and robust control in one place. Great for aerospace GNC.",
+          "link": "https://www.amazon.com/Optimal-Control-Estimation-Robert-Stengel/dp/0471863797",
+          "label": "View book",
+          "free": false
+        }
+      ]
+    },
+    "aerospace": {
+      "label": "Aerospace",
+      "books": [
+        {
+          "id": "astrodynamics",
+          "title": "Fundamentals of Astrodynamics",
+          "author": "Bate, Mueller & White",
+          "isbn": "9780486600611",
+          "desc": "Short, dense, legendary. Two-body orbits, transfers, and interplanetary trajectories.",
+          "link": "https://www.amazon.com/Fundamentals-Astrodynamics-Dover-Aeronautical-Engineering/dp/0486600610",
+          "label": "View book",
+          "free": false
+        },
+        {
+          "id": "aircraft-control",
+          "title": "Aircraft Control and Simulation",
+          "author": "Stevens, Lewis & Johnson",
+          "isbn": "9781119672519",
+          "desc": "Flight dynamics, stability derivatives, and autopilot design for real aircraft and UAVs.",
+          "link": "https://www.amazon.com/Aircraft-Control-Simulation-Dynamics-Autonomous/dp/1119672517",
+          "label": "View book",
+          "free": false
+        }
+      ]
+    },
+    "math": {
+      "label": "Math & Foundations",
+      "books": [
+        {
+          "id": "axler-la",
+          "title": "Linear Algebra Done Right",
+          "author": "Sheldon Axler",
+          "isbn": "9783319110790",
+          "desc": "Vector spaces and linear maps without determinants first. Clean proofs for robotics math.",
+          "link": "https://linear.axler.net/",
+          "label": "Author's site",
+          "free": false
+        },
+        {
+          "id": "strang-la",
+          "title": "Introduction to Linear Algebra",
+          "author": "Gilbert Strang",
+          "isbn": "9781733146630",
+          "desc": "The most intuitive LA book. Matrix factorizations with geometric intuition. Free MIT lectures.",
+          "link": "https://math.mit.edu/~gs/linearalgebra/",
+          "label": "Read free",
+          "free": true
+        },
+        {
+          "id": "boyd-cvx",
+          "title": "Convex Optimization",
+          "author": "Boyd & Vandenberghe",
+          "isbn": "9780521833783",
+          "desc": "Foundation for trajectory optimization, MPC, and modern robotics research. Free PDF.",
+          "link": "https://web.stanford.edu/~boyd/cvxbook/",
+          "label": "Read free",
+          "free": true
+        }
+      ]
+    }
+  },
+  "paths": [
+    {
+      "id": "robotics-research",
+      "title": "Robotics research intern",
+      "subtitle": "Stanford CHARM, MIT MCube, Berkeley BAIR",
+      "steps": ["craig-robotics", "modern-robotics", "prob-robotics", "planning-algorithms"],
+      "tip": "Start with Craig for intuition, then Modern Robotics for the math. Probabilistic Robotics when you touch SLAM or state estimation."
+    },
+    {
+      "id": "controls-gnc",
+      "title": "Controls & GNC",
+      "subtitle": "Flight software, estimation, optimal control",
+      "steps": ["franklin-controls", "stengel-optimal", "boyd-cvx", "strang-la"],
+      "tip": "Franklin gives you the feedback loop basics. Stengel covers LQR and Kalman filtering. Boyd is essential for anything optimization-based."
+    },
+    {
+      "id": "manipulation",
+      "title": "Manipulation & dynamics",
+      "subtitle": "Arms, grippers, computed torque",
+      "steps": ["craig-robotics", "modern-robotics", "spong-modeling", "boyd-cvx"],
+      "tip": "Spong is the bridge from kinematics to actually controlling a manipulator under uncertainty."
+    },
+    {
+      "id": "aerospace",
+      "title": "Aerospace trajectory design",
+      "subtitle": "Orbits, UAVs, autopilots",
+      "steps": ["franklin-controls", "astrodynamics", "aircraft-control", "stengel-optimal"],
+      "tip": "Astrodynamics is short but dense. Read it twice. Aircraft Control connects theory to real flight systems."
+    }
+  ]
+}

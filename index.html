@@ -474,6 +474,71 @@
       opacity: 0.75;
     }
 
+    /* ── Reading paths ── */
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .path-card {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(45,74,62,0.15);
+      border-radius: 16px;
+      padding: 1.25rem;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .path-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .path-card h3 {
+      font-size: 1.05rem;
+      color: var(--green);
+      margin-bottom: 0.15rem;
+    }
+    .path-sub { font-size: 0.78rem; color: var(--orange); font-weight: 600; margin-bottom: 0.85rem; }
+    .path-steps {
+      list-style: none;
+      counter-reset: step;
+      margin-bottom: 0.85rem;
+    }
+    .path-steps li {
+      counter-increment: step;
+      font-size: 0.82rem;
+      padding: 0.35rem 0;
+      padding-left: 1.75rem;
+      position: relative;
+      color: #444;
+      border-bottom: 1px dashed rgba(45,74,62,0.12);
+    }
+    .path-steps li:last-child { border-bottom: none; }
+    .path-steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: var(--green);
+      color: var(--cream);
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0.4rem;
+    }
+    .path-steps a { color: var(--green); text-decoration: none; font-weight: 600; }
+    .path-steps a:hover { color: var(--orange); }
+    .path-tip {
+      font-size: 0.78rem;
+      color: #666;
+      font-style: italic;
+      border-left: 2px solid var(--orange);
+      padding-left: 0.75rem;
+      line-height: 1.5;
+    }
+
     /* ── Footer ── */
     footer {
       background: var(--green-dark);
@@ -511,6 +576,7 @@
     <nav>
       <div class="logo">shelf.</div>
       <ul class="nav-links">
+        <li><a href="#paths">Paths</a></li>
         <li><a href="#news">News</a></li>
         <li><a href="#robotics">Books</a></li>
         <li><a href="#controls">Controls</a></li>
@@ -546,6 +612,17 @@
       </div>
       <div>
         <p>These are the books I keep coming back to, the ones that show up in Stanford and MIT labs, and the ones that actually teach you something you can use on a real project. Some are free online. All are worth your time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading Paths -->
+  <section class="section-cream" id="paths">
+    <div class="section-inner">
+      <h2 class="section-title orange">Reading paths</h2>
+      <p class="section-sub">Where to start depending on what you're aiming for. Ordered sequences, not random lists.</p>
+      <div class="paths-grid" id="paths-grid">
+        <p class="news-loading" style="color:#666">Loading paths…</p>
       </div>
     </div>
   </section>
@@ -665,28 +742,8 @@
   </footer>
 
   <script>
-    const BOOKS = {
-      robotics: [
-        { title: "Modern Robotics", author: "Lynch & Park", isbn: "9781107156302", desc: "Kinematics, dynamics, and planning. Free video lectures and Python library included.", link: "https://modernrobotics.org/", label: "Read free" },
-        { title: "Introduction to Robotics", author: "John J. Craig", isbn: "9780133489799", desc: "The classic first robotics book. Transforms, Jacobians, trajectory planning, and dynamics.", link: "https://www.amazon.com/Introduction-Robotics-Mechanics-Control-4th/dp/0133489790", label: "View book" },
-        { title: "Probabilistic Robotics", author: "Thrun, Burgard & Fox", isbn: "9780262201629", desc: "SLAM, localization, and Bayesian state estimation. The bible for autonomous navigation.", link: "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/", label: "MIT Press" },
-        { title: "Planning Algorithms", author: "Steven M. LaValle", isbn: "9780521862059", desc: "RRT, PRM, combinatorial planning, and decision theory. Full book free online.", link: "http://lavalle.pl/planning/", label: "Read free" },
-      ],
-      controls: [
-        { title: "Feedback Control of Dynamic Systems", author: "Franklin, Powell & Emami-Naeini", isbn: "9780134685717", desc: "PID, root locus, frequency response, and state-space. The standard undergrad controls text.", link: "https://www.amazon.com/Feedback-Control-Dynamic-Systems-8th/dp/0134685717", label: "View book" },
-        { title: "Robot Modeling and Control", author: "Spong, Hutchinson & Vidyasagar", isbn: "9780471646432", desc: "Rigid-body dynamics and computed torque control for manipulators.", link: "https://www.amazon.com/Robot-Modeling-Control-Mark-Spong/dp/0471646437", label: "View book" },
-        { title: "Optimal Control and Estimation", author: "Robert F. Stengel", isbn: "9780471863795", desc: "LQR, Kalman filtering, and robust control in one place. Great for aerospace GNC.", link: "https://www.amazon.com/Optimal-Control-Estimation-Robert-Stengel/dp/0471863797", label: "View book" },
-      ],
-      aerospace: [
-        { title: "Fundamentals of Astrodynamics", author: "Bate, Mueller & White", isbn: "9780486600611", desc: "Short, dense, legendary. Two-body orbits, transfers, and interplanetary trajectories.", link: "https://www.amazon.com/Fundamentals-Astrodynamics-Dover-Aeronautical-Engineering/dp/0486600610", label: "View book" },
-        { title: "Aircraft Control and Simulation", author: "Stevens, Lewis & Johnson", isbn: "9781119672519", desc: "Flight dynamics, stability derivatives, and autopilot design for real aircraft and UAVs.", link: "https://www.amazon.com/Aircraft-Control-Simulation-Dynamics-Autonomous/dp/1119672517", label: "View book" },
-      ],
-      math: [
-        { title: "Linear Algebra Done Right", author: "Sheldon Axler", isbn: "9783319110790", desc: "Vector spaces and linear maps without determinants first. Clean proofs for robotics math.", link: "https://linear.axler.net/", label: "Author's site" },
-        { title: "Introduction to Linear Algebra", author: "Gilbert Strang", isbn: "9781733146630", desc: "The most intuitive LA book. Matrix factorizations with geometric intuition. Free MIT lectures.", link: "https://math.mit.edu/~gs/linearalgebra/", label: "Read free" },
-        { title: "Convex Optimization", author: "Boyd & Vandenberghe", isbn: "9780521833783", desc: "Foundation for trajectory optimization, MPC, and modern robotics research. Free PDF.", link: "https://web.stanford.edu/~boyd/cvxbook/", label: "Read free" },
-      ],
-    };
+    let BOOKS = {};
+    let BOOK_MAP = {};
 
     function bookCard(b) {
       const cover = `https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg`;
@@ -707,6 +764,45 @@
     for (const [cat, books] of Object.entries(BOOKS)) {
       document.getElementById("carousel-" + cat).innerHTML = books.map(bookCard).join("");
     }
+
+    function renderPaths(paths) {
+      const grid = document.getElementById("paths-grid");
+      grid.innerHTML = paths.map((p) => `
+        <article class="path-card">
+          <h3>${p.title}</h3>
+          <p class="path-sub">${p.subtitle}</p>
+          <ol class="path-steps">
+            ${p.steps.map((id) => {
+              const b = BOOK_MAP[id];
+              return b ? `<li><a href="${b.link}" target="_blank" rel="noopener">${b.title}</a></li>` : "";
+            }).join("")}
+          </ol>
+          <p class="path-tip">${p.tip}</p>
+        </article>
+      `).join("");
+    }
+
+    async function loadBooks() {
+      try {
+        const res = await fetch("data/books.json");
+        if (!res.ok) throw new Error("fetch failed");
+        const data = await res.json();
+        for (const [cat, group] of Object.entries(data.categories)) {
+          BOOKS[cat] = group.books;
+          group.books.forEach((b) => { BOOK_MAP[b.id] = b; });
+        }
+        for (const [cat, books] of Object.entries(BOOKS)) {
+          const el = document.getElementById("carousel-" + cat);
+          if (el) el.innerHTML = books.map(bookCard).join("");
+        }
+        renderPaths(data.paths || []);
+      } catch {
+        document.getElementById("paths-grid").innerHTML =
+          '<p style="color:#666">Could not load reading paths.</p>';
+      }
+    }
+
+    loadBooks();
 
     function scrollCarousel(btn, dir) {
       const carousel = btn.parentElement.querySelector(".carousel");
